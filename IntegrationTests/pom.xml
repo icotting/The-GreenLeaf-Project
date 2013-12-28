@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>edu.unl.act.rma</groupId>
+		<artifactId>GreenLeafProject</artifactId>
+		<version>2.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>IntegrationTests</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>FirmCore</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+			<type>jar</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.appclient</groupId>
+			<artifactId>gf-client</artifactId>
+			<version>3.0-b74b</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.orb</groupId>
+			<artifactId>orb-iiop</artifactId>
+			<version>3.0-b74b</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!--  Testing Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+</project>

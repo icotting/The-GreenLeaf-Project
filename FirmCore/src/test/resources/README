@@ -1,0 +1,97 @@
+The test oracle contains a serialized Java HashMap<String, Object>.  The contents of the hash map bucket map to 
+data type results from FIRM to use as a comparison to computed values from drought indices.  The following 
+summarizes the keys as well as the type returned for each key. 
+
+The data is input for PDSI only. This is done as the input updates on it own which will break the pdsi values.
+MONTHLY_PRECIP_P - java.util.HashMap<String, float[][])
+MONTHLY_TEMP_P - java.util.HashMap<String, float[][])
+WEEKLY_PRECIP_P - java.util.HashMap<String, float[][])
+WEEKLY_TEMP_P - java.util.HashMap<String, float[][])
+WEEKLY_AVG_TEMP_P - java.util.HashMap<String, float[][])
+MONTHLY_AVG_TEMP_P - java.util.HashMap<String, float[][])
+
+The data is the input
+MONTHLY_PRECIP - java.util.HashMap<String, float[][])
+MONTHLY_TEMP - java.util.HashMap<String, float[][])
+WEEKLY_PRECIP - java.util.HashMap<String, float[][])
+WEEKLY_TEMP - java.util.HashMap<String, float[][])
+WEEKLY_AVG_TEMP - java.util.HashMap<String, float[][])
+MONTHLY_AVG_TEMP - java.util.HashMap<String, float[][])
+SPI_M_1 - java.util.HashMap<String, float[][])
+SPI_M_2 - java.util.HashMap<String, float[][])
+SPI_M_4 - java.util.HashMap<String, float[][])
+SPI_M_6 - java.util.HashMap<String, float[][])
+SPI_M_12 - java.util.HashMap<String, float[][])
+SPI_W_2 - java.util.HashMap<String, float[][])
+SPI_W_4 - java.util.HashMap<String, float[][])
+SPI_W_8 - java.util.HashMap<String, float[][])
+SPI_W_12 - java.util.HashMap<String, float[][])
+SPI_W_26 - java.util.HashMap<String, float[][])
+SPI_W_52 - java.util.HashMap<String, float[][])
+PDSI_M_1 - java.util.HashMap<String, float[][])
+PHDI_M_1 - java.util.HashMap<String, float[][])
+ZIND_M_1 - java.util.HashMap<String, float[][])
+PDSI_W_1 - java.util.HashMap<String, float[][])
+PHDI_W_1 - java.util.HashMap<String, float[][])
+ZIND_W_1 - java.util.HashMap<String, float[][])
+PDSI_W_2 - java.util.HashMap<String, float[][])
+PHDI_W_2 - java.util.HashMap<String, float[][])
+ZIND_W_2 - java.util.HashMap<String, float[][])
+PDSI_W_4 - java.util.HashMap<String, float[][])
+PHDI_W_4 - java.util.HashMap<String, float[][])
+ZIND_W_4 - java.util.HashMap<String, float[][])
+PDSI_W_13 - java.util.HashMap<String, float[][])
+PHDI_W_13 - java.util.HashMap<String, float[][])
+ZIND_W_13 - java.util.HashMap<String, float[][])
+NSM_COMPLETE - DTOCollection<NSMCompleteDTO>
+NSM_SUMMARY - DTOCOllection<NSMSummaryDTO>
+
+These keys are for NSM_COMPLETE:
+ConsecutiveDryDaysAfterSummerSolstice
+ConsecutiveMoistDaysAfterWinterSolstice
+MoistureRegimeSubdivision-Name
+MonthlyEvapotranspirations
+MonthlyPrecipitations
+MonthlyTemperatures
+MostConsecutiveMoistDays
+MostConsecutiveMoistDaysAbove8
+SoilMoistureCalendar
+SoilMoistureSlants
+SoilTemperatureCalendar
+TemperatureRegime-Name
+TotalDryDays
+TotalDryDaysAbove5
+TotalMediumDays
+TotalMediumDaysAbove5
+TotalMoistDays
+TotalMoistDaysAbove5
+
+These keys are for NSM_SUMMARY:
+Awb
+Regime-Name
+Bio8
+DryDays
+Evapotranspiration
+MediumDays
+MoistDays
+Msd
+Precipitation
+Precip_Average
+Evapotranspiration_Average
+AWB_Average
+MSD_Average
+Bio8_Average
+DryDays_Average
+MediumDays_Average
+MoistDays_Average
+					
+
+PDSI_ADDITIONAL_INPUTS - java.util.HashMap<String, float[][])
+	In this case the AWC is at float[0][0] and the latitude is at float[1][0]
+	
+The data is from the following stations
+
+SCOTTSBLUFF_HELIG_AP - 257665
+TEKAMAH - 258480
+BROKEN_BOW_2W - 251200
+HASTINGS_4N - 253660	

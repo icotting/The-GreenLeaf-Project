@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://greenleaf.unl.edu/facelets"	
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+	<ui:composition template="./resources/templates/zune.xhtml">
+			
+		<ui:define name="styles">
+			<link rel="stylesheet" type="text/css" href="./resources/styles/dir.css" />
+		</ui:define>
+			
+		<ui:define name="scripts">
+			<script src="../resources/scripts/FusionMaps.js" type="text/javascript" />
+			<script src="../resources/scripts/FusionCharts.js" type="text/javascript" />
+			<script src="../resources/scripts/dir.js" type="text/javascript" />			
+		</ui:define>
+						
+		<ui:define name="pageBody">		
+			<div style="display: none;">
+			<h:form id="dateSelector">
+				<h:inputText id="endDate" value="#{dirBean.endDate}">
+					<f:convertDateTime dateStyle="short" action="#{dirBean.init}"/>
+				</h:inputText>
+				
+				<h:commandButton value="Update" id="update">
+					<f:ajax execute="dateSelector:endDate" render=":pageMap :pageData" onevent="refreshPage()"/>
+				</h:commandButton>	
+			</h:form>
+			</div>
+			<table>
+				<tr>
+					<td>
+						<h:panelGrid id="pageMap">
+						<h:column>
+						<div id="mapContainer">
+							<div id="mapdiv"></div>				
+							<h:outputScript>
+								var map = new FusionMaps("../resources/maps/FCMap_USA.swf", "Map1Id", "700", "500", "0", "0");
+								map.setDataURL("../service/dir/maps/dominantCategory/");
+		         				map.render("mapdiv");
+							</h:outputScript>
+						</div>
+						</h:column>
+						</h:panelGrid>
+					</td>
+					<td id="legend">
+					     <ul id="categories">
+							<li><img src="./resources/images/dir-categories/Agriculture.png"/> Agriculture</li>
+							<li><img src="./resources/images/dir-categories/Business.png"/> Business &amp; Industry</li>
+							<li><img src="./resources/images/dir-categories/Disaster.png"/> Disaster Declaration &amp; Aid</li>
+							<li><img src="./resources/images/dir-categories/Energy.png"/> Energy</li>
+							<li><img src="./resources/images/dir-categories/General.png"/> General Awareness</li>
+							<li><img src="./resources/images/dir-categories/Other.png"/> Other</li>
+							<li><img src="./resources/images/dir-categories/Plant.png"/> Plants &amp; Wildlife</li>
+							<li><img src="./resources/images/dir-categories/Relief.png"/> Relief, Response &amp; Restrictions</li>
+							<li><img src="./resources/images/dir-categories/Society.png"/> Society &amp; Public Health</li>
+							<li><img src="./resources/images/dir-categories/Tourism.png"/> Tourism &amp; Recreation</li>
+							<li><img src="./resources/images/dir-categories/Water.png"/> Water Supply &amp; Quality</li>
+							<li><img src="./resources/images/dir-categories/Wildfire.png"/> Wildfire</li>
+						</ul>	
+					</td>
+				</tr>
+			</table>
+			<h:panelGrid id="pageData">
+			<h:column>			
+			<div id="dataContainer">
+			<table>
+				<tr>
+					<td>
+						<h:dataTable value="#{dirBean.nationStats.statistics}" var="s" columns="14" width="1000" id="categoryCountTbl">
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<h:outputText value="State"/>
+					      		</f:facet>
+					      		<h:outputText value="#{s.division.toString()}"/>
+					      	</h:column>	
+					      	<h:column>
+					      		<f:facet name="header"> 
+									<img src="./resources/images/dir-categories/Agriculture.png" alt="Agriculture"/>
+					      		</f:facet>
+					      		<h:outputText value="#{s.categoryCountsForJsf['Agriculture']}"/>
+					      	</h:column>	
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Wildfire.png" alt="Wildfire"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Fire']}"/>
+					      	</h:column>	
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Plant.png" alt="Plants &amp; Wildlife"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Plants &amp; Wildlife']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Water.png" alt="Water Supply &amp; Quality"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Water Supply &amp; Quality']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Society.png" alt="Society &amp; Public Health"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Society &amp; Public Health']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Business.png" alt="Business &amp; Industry"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Business &amp; Industry']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Energy.png" alt="Energy"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Energy']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Tourism.png" alt="Tourism &amp; Recreation"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Tourism &amp; Recreation']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+									<img src="./resources/images/dir-categories/Disaster.png" alt="Disaster Declaration &amp; Aid"/>	
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Disaster Declaration &amp; Aid']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Relief.png" alt="Relief, Response &amp; Restrictions"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Relief, Response &amp; Restrictions']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+						      		<img src="./resources/images/dir-categories/General.png" alt="General Awareness"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['General Awareness']}"/>
+					      	</h:column>
+					      	<h:column>
+					      		<f:facet name="header">
+					      			<img src="./resources/images/dir-categories/Other.png" alt="Other"/>
+					      		</f:facet>	      	
+					      		<h:outputText value="#{s.categoryCountsForJsf['Other']}"/>
+					      	</h:column>
+							<h:column>
+					      		<f:facet name="header">
+					      			<h:outputText value="Total"/>
+					      		</f:facet>			
+								<h:outputText value="#{s.impactCount}"/>
+							</h:column>	      	
+					      </h:dataTable>					
+					</td>
+					<td rowspan="2">
+						<div id="chart"> </div>		
+						<div id="losses"></div>		
+						<h:outputScript>
+							var chart = new FusionCharts("../resources/charts/Pie2D.swf", "chart", "350", "400", "0", "0");
+							chart.setDataURL("../service/dir/charts/categories/");
+							chart.render("chart");
+				
+							chart = new FusionCharts("../resources/charts/Pie2D.swf", "losses", "350", "340", "0", "0");
+							chart.setDataURL("../service/dir/charts/losses/");
+							chart.render("losses");
+						</h:outputScript>
+					</td>
+				</tr>
+				<tr>
+					<td>
+ 						<div id="impactList">
+						<h:form>
+						<div class="section">Reported Drought Impacts</div>		  
+						  <h:dataTable value="#{dirBean.nationImpacts}" var="report" columns="1">
+							<h:column>
+								<h:commandLink action="./impactview.xhtml" value="#{report.title}">
+									<f:param name="impact" value="#{report.id}"/>
+								</h:commandLink>
+								<div>
+									<h:outputText value="#{report.summary}"/><br/>
+								</div>
+							</h:column>	
+						  </h:dataTable>
+						  </h:form>
+						  </div>
+					</td>
+				</tr>
+			</table>
+			</div>
+			</h:column>
+			</h:panelGrid>
+		</ui:define>
+
+		<ui:define name="footer">
+			<div style="position: relative; top: 10px; left: 30px; font-size: 10pt; font-weight: normal;">
+				DIR Date: 	
+				<input type="text" id="datepicker"/>
+			</div>
+			<h:outputScript>
+				var now = new Date();
+		        document.getElementById("datepicker").value = now.format("mm/dd/yyyy");
+		         				
+				$('#toolsSelector').show();
+				$("#datepicker").datepicker({
+					showOn: 'button',
+					buttonImage: '../resources/images/global/calendar.png',
+					buttonImageOnly: true,
+					onClose: function(dateText, inst) { newDate(); }
+				});
+			</h:outputScript>	
+		</ui:define>
+	</ui:composition>
+
+</html>

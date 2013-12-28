@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://greenleaf.unl.edu/facelets"	
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+	<ui:composition template="./resources/templates/zune.xhtml">
+		<ui:define name="styles">
+			<link rel="stylesheet" type="text/css" href="../resources/styles/about.css"/>
+		</ui:define>
+
+		<ui:define name="scripts">
+			<script type="text/javascript" src="./resources/scripts/flowplayer-3.2.2.min.js"></script>
+		</ui:define>	
+		
+		<ui:define name="pageBody">
+			<h:outputScript>$('#aboutSelector').show();</h:outputScript>
+			
+			<div id="pageMenu">
+				<ul>
+					<li>Design Concepts</li>
+					<li>Better Tools</li>
+					<li>Features</li>
+					<li>Contacts</li>
+				</ul>
+			</div>
+	
+			<div class="contentSection">
+						<a class="videoLink" href="#" rel="video1">
+							<img src="../resources/images/about/video1thumb.png"/><br/>
+							Watch the 2006 introduction video.
+						</a>
+						<br/><br/>
+						<a class="videoLink" href="#" rel="video2">
+							<img src="../resources/images/about/video2thumb.png"/><br/>
+							Watch the video
+						</a>
+			</div>
+
+			
+			
+			<div style="display: none;">
+				<a href="../videos/video1.flv" style="display:block;width:960px;height:540px" id="player1"/>
+			</div>
+			
+			<div style="display: none;">
+				<a href="../videos/video2.flv" style="display:block;width:960px;height:540px" id="player2"/> 
+			</div>
+			
+			<script>
+			$("a[href*=.flv]").flowplayer("../resources/flowplayer-3.2.2.swf", { clip: { autoPlay: true, autoBuffering: true} });
+			$("a[rel='video1']").colorbox({inline:true, href:"#player1", width: "1002px", height: "625px"});
+			$("a[rel='video2']").colorbox({inline:true, href:"#player2", width: "1002px", height: "625px"});
+			</script>
+		</ui:define>
+	</ui:composition>
+
+</html>

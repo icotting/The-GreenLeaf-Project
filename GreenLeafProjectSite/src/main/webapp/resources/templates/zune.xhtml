@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+	<h:head>
+		<link rel="stylesheet" type="text/css" href="./resources/styles/zune.css" />
+		<link rel="stylesheet" type="text/css" href="./resources/styles/jquery-ui-1.8.2.custom.css" />
+		<link rel="stylesheet" type="text/css" href="./resources/styles/colorbox.css" />		
+		
+		<ui:insert name="styles"></ui:insert>
+		<script type="text/javascript" src="./resources/scripts/JQuery.js"></script>		
+		<script type="text/javascript" src="./resources/scripts/dateformatter.js"></script>	
+		<script type="text/javascript" src="./resources/scripts/greenleaf.js"/>
+		<script type="text/javascript" src="./resources/scripts/FusionCharts.js"></script>		
+		<script type="text/javascript" src="./resources/scripts/jquery-ui-1.8.2.custom.min.js"></script>		
+		<script type="text/javascript" src="./resources/scripts/jquery.colorbox-min.js"></script>
+		<ui:insert name="scripts"></ui:insert>
+
+		
+		<title>The GreenLeaf Project</title>
+	</h:head>
+	
+	<div id="header">
+		<div id="title">The <span>GreenLeaf</span> Project</div>
+		
+		<div id="menu">
+			<ul>
+				<li>
+					<a href="index.xhtml">Conditions</a>
+					<div id="conditionsSelector" class="selector"></div>
+				</li>
+				<li>
+					<a href="tools.xhtml">Tools</a>
+					<div id="toolsSelector" class="selector"></div>
+				</li>
+				<li>
+					<a href="about.xhtml">About</a>
+					<div id="aboutSelector" class="selector"></div>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="search">
+			Search:&nbsp;
+			<input type="text" id="query"/>
+			<img style="position: relative; top: 6px; left: 4px;" src="../resources/images/global/search-small.png"/>
+		</div>
+	</div>
+	
+	<div id="page">
+		<ui:insert name="pageBody">
+			Insert Page Body Here
+		</ui:insert>
+	</div>
+	
+	
+	<div id="footer">
+		<div style="padding: 5px;">
+		<ui:insert name="footer"></ui:insert>
+		</div>
+	</div>
+	
+	</h:body>
+	
+</html>

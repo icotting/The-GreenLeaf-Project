@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://greenleaf.unl.edu/facelets"	
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+	<ui:composition template="./resources/templates/zune.xhtml">
+		<ui:define name="styles">
+			<link rel="stylesheet" type="text/css" href="./resources/styles/map.css"/>
+		</ui:define>
+		<ui:define name="scripts">
+			<script type="text/javascript" src="./resources/scripts/maps.js"/>
+			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		</ui:define>	
+		
+		<ui:define name="pageBody">
+			<f:view contentType="text/html">
+			<h:outputScript>$('#toolsSelector').show();</h:outputScript>	
+			<div id="map_canvas" style="width:100%;"></div>	
+			<h:outputScript>
+				initMap();
+			</h:outputScript>	
+			</f:view>
+			
+			<div id="layerPopup">
+			<div id="layerPopupFront">
+				<h1>Map Layers</h1>
+				<table>
+					<tr>
+						<td><input type="checkbox" onclick="toggleDm()" id="dmToggle" /><label for="dmToggle">US Drought Monitor</label></td>
+						<td><div class="slider" id="dmSlider"></div></td>
+					</tr>
+					<tr><td colspan="2"><div style="height: 10px;"></div></td></tr>
+					<tr>
+						<td><input type="checkbox" onclick="toggleDir()" id="dirToggle" /><label for="dirToggle">Drought Impacts</label></td>
+						<td><div class="slider" id="dirSlider"></div></td>
+					</tr>
+				</table>
+				<h1>Map Date</h1>
+				<div id="datepicker"/>	
+			</div>
+			<div id="layerPopupBack"></div>
+			</div>
+			
+		</ui:define>
+
+		<ui:define name="footer">			
+			<div style="position: relative; top: 10px; left: 10px; font-size: 8pt;">
+			<input type="checkbox" id="mapLayers" value="Layers" onclick="toggleLayerDisplay()"/><label for="mapLayers">Map Controls</label>
+			</div>
+			
+			<h:outputScript>
+				$("#dmToggle").button();
+				$("#dirToggle").button();
+				$("#mapLayers").button();
+				
+				$("#layerPopup").hide();
+				$("#layerPopupBack").height($("#map_canvas").height());
+			
+				var now = new Date();
+		        document.getElementById("datepicker").value = now.format("mm/dd/yyyy");
+			
+				$("#datepicker").datepicker({
+					onSelect: function(dateText, inst) { processNewDate(); }
+				});
+								
+				$(document).ready(function() {
+				    $(".slider").slider();
+				    $(".slider").slider({ max: 100 });
+				  	$(".slider").slider({ min: 0 });
+				  	$(".slider").slider({ value: 65 });
+				  	$("#dmSlider").slider({
+					   change: function(event, ui) { updateDmOpacity($("#dmSlider").slider("value")); }
+					});
+					$("#dirSlider").slider({
+					   change: function(event, ui) { updateDirOpacity($("#dirSlider").slider("value")); }
+					});
+				 });
+			</h:outputScript>
+					
+		</ui:define>
+	</ui:composition>
+
+</html>

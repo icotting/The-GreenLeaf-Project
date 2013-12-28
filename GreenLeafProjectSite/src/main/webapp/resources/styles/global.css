@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+body { font-family: calibri, verdana, arial; color: black; background-color: #fafafa;}
+
+#header { position: absolute; top: 0px; left: 0px; 
+	background-image: url('../images/global/HeaderBack.png'); background-repeat: repeat-x;
+	width: 100%; height: 52px; 
+	text-align: left; padding-bottom: 10px } 
+			
+#logo span { position: absolute; top: -40px; left: 70px; font-size: 15pt; color: white; }
+#logo .leaf { position: absolute; top: -40px; left: 10px; }
+
+#tabcontainer { width: 900px; margin: 0 auto; heght: 30px; }
+#tabbar { padding-left: 465px; }
+#tabbar ul { list-style-type: none; }
+#tabbar li { float: left; position: relative; top: -20px; }
+#tabbar .tab { color: white; font-weight:bold; height: 32px; width: 130px; font-size: 14px; text-align: center; padding-top: 4px; cursor: pointer;}
+#tabbar a { color: white; text-decoration: none; }
+#tabbar a:visited { color: white; }
+#tabbar a:hover { color: #83cc23; }
+.tabicon { position: relative; top: 10px; margin-right: 10px; }
+
+#page { z-index: 1; position: relative; top: 44px; width: 1000px; margin: 0 auto;
+	padding-top: 20px; padding-bottom: 50px;
+	background-image: url('../images/global/PageBodyBack.png'); background-repeat: repeat-y; }
+	
+#footer { font-size: 8pt; position: relative; top: 33px; width: 1000px; margin: 0 auto; 
+	height: 54px; background-image: url('../images/global/PageFooterBack.png'); background-repeat: no-repeat; }
+
+#footercontent { margin-left: 40px; text-align: right; width: 920px; }	
+#pagecontent { margin-left: 40px; text-align: left; width: 920px; } 
+ 
+#pageBody { padding-top: 20px; padding-left: 50px; font-size: 10pt; }

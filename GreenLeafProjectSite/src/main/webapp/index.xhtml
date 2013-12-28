@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://greenleaf.unl.edu/facelets"	
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+	<ui:composition template="./resources/templates/zune.xhtml">
+			
+		<ui:define name="styles">
+		<link rel="stylesheet" type="text/css" href="./resources/styles/home.css" />
+		</ui:define>
+			
+		<ui:define name="pageBody">			
+			<h:outputScript>$('#conditionsSelector').show();</h:outputScript>
+			
+			<div id="mainContent">
+			<h:panelGrid columns="2" id="charts">
+			<f:facet name="header">
+				<div id="dmHead"><div id="content">The current drought conditions in <h:outputText value="#{locationBean.city}, #{locationBean.state}"/> are being assessed...</div></div>				
+			</f:facet>
+			<h:column>
+			<div id="dmChart" onclick="showDialog('dmChartDialog')">
+				<div id="dmChartCanvas"></div>
+			</div>
+			</h:column>
+			<h:column>
+			<div id="precipChart" onclick="showDialog('precipChartDialog')">
+				<div id="precipChartCanvas"></div>
+				<div id="precipNote"></div>
+			</div>
+			<h:outputScript>		
+				$.get("../service/home/stats/dm/dmConditionsHead", function(data) { 
+					$('#dmHead #content').replaceWith(data);
+	
+					var chart = new FusionCharts("../resources/charts/MSColumn3D.swf", "dmChartCanvas", "400", "250", "0", "0");
+					chart.setDataURL("../service/home/stats/dm/frequencyChart/");
+					chart.render("dmChartCanvas");
+			
+					var chart = new FusionCharts("../resources/charts/MSColumn3D.swf", "bigDmChartCanvas", "750", "450", "0", "0");
+					chart.setDataURL("../service/home/stats/dm/frequencyChart/full");
+					chart.render("bigDmChartCanvas");
+				
+					var chart = new FusionCharts("../resources/charts/MSColumnLine3D.swf", "precipChartCanvas", "400", "250", "0", "0");
+					chart.setDataURL("../service/home/stats/precip/");
+					chart.render("precipChartCanvas");
+					
+					var chart = new FusionCharts("../resources/charts/MSColumnLine3D.swf", "bigPrecipChartCanvas", "750", "450", "0", "0");
+					chart.setDataURL("../service/home/stats/precip/full");
+					chart.render("bigPrecipChartCanvas");
+
+					var chart = new FusionCharts("../resources/charts/Pie2D.swf", "dirChartCanvas", "400", "250", "0", "0");
+					chart.setDataURL("../service/home/stats/dir/categories/");
+					chart.render("dirChartCanvas");
+
+					var chart = new FusionCharts("../resources/charts/Pie2D.swf", "bigDirChartCanvas", "750", "450", "0", "0");
+					chart.setDataURL("../service/home/stats/dir/categories/full");
+					chart.render("bigDirChartCanvas");
+
+					var chart = new FusionCharts("../resources/charts/Pie2D.swf", "dirLossChartCanvas", "400", "250", "0", "0");
+					chart.setDataURL("../service/home/stats/dir/categories/loss/");
+					chart.render("dirLossChartCanvas");
+
+					var chart = new FusionCharts("../resources/charts/Pie2D.swf", "bigLossDirChartCanvas", "750", "450", "0", "0");
+					chart.setDataURL("../service/home/stats/dir/categories/loss/full");
+					chart.render("bigLossDirChartCanvas");					
+
+					$('#precipNote').append('<small>Precipitation summaries are current as of <h:outputText value="#{dataStatsBean.weeklyDataDate}"/></small>');
+				});
+				
+				function processLocation() { 
+					$('#locationEntry').hide();
+					$('#processText').show();
+				}
+			</h:outputScript>
+			
+			<div id="dmChartDialog" class="modalDialog">
+				<div id="bigDmChartCanvas"></div>
+			</div>
+			
+			<div id="precipChartDialog" class="modalDialog">
+				<div id="bigPrecipChartCanvas"></div>
+			</div>
+			
+			</h:column>
+			</h:panelGrid>
+			</div>
+			
+			<div id="stationList">
+				<div class="section">Nearby Weather Stations</div>
+				<h:form id="stationForm">
+				<h:dataTable id="stationTbl" var="station" columns="1" value="#{locationBean.stations}">
+					<h:column>
+						<h:commandLink value="#{station.data['STATION_NAME']}"/>
+					</h:column>
+				</h:dataTable>
+				</h:form>
+			</div>
+			
+			<div id="droughtReportsSection">
+				<div class="section">Local Drought Impacts</div>
+				
+				<table>
+					<tr>
+						<td id="droughtReports">
+							<h:form id="reportForm">
+							<h:dataTable id="reportTbl" columns="1" value="#{locationBean.droughtImpactReports}" var="report" rendered="#{locationBean.droughtImpactReports.size() > 0}">
+								<h:column>
+									<h:commandLink action="./impactview.xhtml" value="#{report.title}">
+										<f:param name="impact" value="#{report.impactId}"/>
+									</h:commandLink>
+									<div>
+										<h:outputText value="#{report.summary}"/><br/>
+									</div>
+								</h:column>			
+							</h:dataTable>
+
+							</h:form>
+							<div style="margin-bottom: 10px"><h:outputText rendered="#{locationBean.droughtImpactReports.size() == 0}" value="No drought impacts have been reported over the last four months."/></div>
+							<small>See more in the <a href="./dir.xhtml">Drought Impact Catalog</a>.</small>
+						</td>
+						<td id="droughtReportCharts">
+							<h:panelGrid columns="1" id="reportCharts">					
+									<div id="dirChart" onclick="showDialog('dirCategoryChartDialog')">
+										<div id="dirChartCanvas"></div>
+									</div>
+									
+									<div id="dirLossChart" onclick="showDialog('dirCategoryLossChartDialog')">
+										<div id="dirLossChartCanvas"></div>
+									</div>
+									
+									<div id="dirCategoryChartDialog" class="modalDialog">
+										<div id="bigDirChartCanvas"></div>
+									</div>
+									
+									<div id="dirCategoryLossChartDialog" class="modalDialog">
+										<div id="bigLossDirChartCanvas"></div>
+									</div>									
+							</h:panelGrid>						
+						</td>
+					</tr>
+				</table>
+			</div>
+		</ui:define>
+		
+		<ui:define name="footer">
+			<div id="footerContents">
+			<h:form id="footerForm">
+			<h:panelGrid columns="1">
+				<h:column>
+					<div id="locationEntry">
+					<h:outputText rendered="#{locationBean.newLocation}" value="Enter a zip code: &nbsp;"/>
+					<h:inputText rendered="#{ locationBean.newLocation }" id="zip_code" size="6" style="font-size: 10pt;"
+						value="#{locationBean.updateZipCode}" />			
+
+					&nbsp;&nbsp;<h:commandLink rendered="#{ locationBean.newLocation }" value="Update Location" onclick="processLocation()" action="#{locationBean.updateLocation}">
+						<f:ajax execute="footerForm:zip_code" render=":charts :stationForm:stationTbl :reportForm :reportCharts @form"/>
+					</h:commandLink>
+					&nbsp;&nbsp;<h:commandLink rendered="#{ locationBean.newLocation }" value="Cancel">
+						<f:setPropertyActionListener target="#{locationBean.newLocation}" value="false"/>	
+						<f:ajax execute="@this" render="@form"/>
+					</h:commandLink>	
+					</div>
+
+					<h:outputText rendered="#{ !locationBean.newLocation }" value="#{ locationBean.city }, #{locationBean.state} (#{locationBean.zipCode})" />
+					&nbsp;&nbsp;<h:commandLink rendered="#{ !locationBean.newLocation }" value="Change location">
+						<f:setPropertyActionListener target="#{locationBean.newLocation}" value="true"/>	
+						<f:ajax execute="@this" render="@form"/>
+					</h:commandLink>
+					
+
+					<div id="processText">
+						Processing location selection ...
+					</div>					
+				</h:column>
+			</h:panelGrid>
+			<h:message style="font-size: 10pt; color: red; font-weight: bold;" for="zip_code" />
+			</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+
+</html>

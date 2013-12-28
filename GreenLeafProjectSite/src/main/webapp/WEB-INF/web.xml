@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/console.taglib.xml;/WEB-INF/taglib.xml</param-value>
+	</context-param>
+
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Jersey</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>edu.unl.act.rma.service;edu.unl.act.rma.console.service</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Jersey</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+
+	<!--
+		To set up security settings for your web app, create a file named
+		web-security.xml, put it in your project's mergedir. Organize
+		web-security.xml following this DTD slice: <!ELEMENT
+		security-constraint (display-name?, web-resource-collection+,
+		auth-constraint?, user-data-constraint?)> <!ELEMENT
+		web-resource-collection (web-resource-name, description?,
+		url-pattern*, http-method*)> <!ELEMENT web-resource-name (#PCDATA)>
+		<!ELEMENT url-pattern (#PCDATA)> <!ELEMENT http-method (#PCDATA)>
+		<!ELEMENT user-data-constraint (description?, transport-guarantee)>
+		<!ELEMENT transport-guarantee (#PCDATA)> <!ELEMENT login-config
+		(auth-method?, realm-name?, form-login-config?)> <!ELEMENT auth-method
+		(#PCDATA)> <!ELEMENT realm-name (#PCDATA)> <!ELEMENT form-login-config
+		(form-login-page, form-error-page)> <!ELEMENT form-login-page
+		(#PCDATA)> <!ELEMENT form-error-page (#PCDATA)>
+	-->
+</web-app>

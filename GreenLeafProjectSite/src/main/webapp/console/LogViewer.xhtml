@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://firm.unl.edu/facelets">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<title>FIRM Management Console</title>
+		<link rel="stylesheet" type="text/css" href="./style.css"/>
+	</h:head>
+	<body>
+		<h1>FIRM Management Console - Log Viewer</h1>
+		<hr style="border: 0; width: 98%; color: #305fb5; background-color: #305fb5; height: 1px;"/>
+		<div style="position: absolute; top: 10px; right: 30px">
+			<a href="SummaryView.xhtml">Summary</a>&nbsp;&nbsp;
+			<a href="ServiceManager.jsp">Service Manager</a>&nbsp;&nbsp;
+			<a href="LogViewer.xhtml">Log Manager</a>
+		</div>
+		
+		<h:form id="logForm">
+		<div class="main">
+			<div style="float: left; width: 25%;">
+			<p>
+			<h:commandLink value="Refresh Log" action="#{logBean.update}">
+				<f:ajax render="logForm:entries"/>
+			</h:commandLink>
+			</p>
+			<p>
+			<h:commandLink value="Clear Log" action="#{logBean.clear}">
+				<f:ajax render="logForm:entries"/>
+			</h:commandLink>
+			</p>
+			<b>View Entries for:</b>
+			 <ul>
+				<li>
+					<h:commandLink value="Past Day" action="#{logBean.pastDay}">
+						<f:ajax render="logForm:entries"/>
+					</h:commandLink>
+				</li>	
+				<li>
+					<h:commandLink value="Past Week" action="#{logBean.pastWeek}">
+						<f:ajax render="logForm:entries"/>
+					</h:commandLink>
+				</li>	
+				<li>
+					<h:commandLink value="Past 2-Weeks" action="#{logBean.pastTwoWeeks}">
+						<f:ajax render="logForm:entries"/>
+					</h:commandLink>
+				</li>	
+				<li>
+					<h:commandLink value="Past Month" action="#{logBean.pastMonth}">
+						<f:ajax render="logForm:entries"/>				
+					</h:commandLink>
+				</li>
+				<li>
+					<h:commandLink value="All" action="#{logBean.entireHistory}">
+						<f:ajax render="logForm:entries"/>				
+					</h:commandLink>
+				</li>
+			</ul>
+			</div>
+			<div style="border-left: 1px solid #999999; float: right; width: 73%;">
+
+			<h:panelGrid width="75%" columns="7">
+				<h:column><h:outputText value="View Log Type:"/></h:column>
+				<h:column>
+					<h:commandLink value="All" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="ALL"/>
+					</h:commandLink>
+				</h:column>				
+				<h:column>
+					<h:commandLink value="Fatal" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="FATAL"/>
+					</h:commandLink>
+				</h:column>		
+				<h:column>
+					<h:commandLink value="Error" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="ERROR"/>
+					</h:commandLink>
+				</h:column>		
+				<h:column>
+					<h:commandLink value="Warn" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="WARN"/>
+					</h:commandLink>
+				</h:column>		
+				<h:column>
+					<h:commandLink value="Info" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="INFO"/>
+					</h:commandLink>
+				</h:column>		
+				<h:column>
+					<h:commandLink value="Debug" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.type}" value="DEBUG"/>
+					</h:commandLink>
+				</h:column>											
+
+				<h:column><h:outputText value="View For Appender:"/></h:column>
+				<h:column>
+					<h:commandLink value="All" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.appender}" value="ALL"/>
+					</h:commandLink>
+				</h:column>			
+				<h:column>
+					<h:commandLink value="System" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.appender}" value="SYSTEM_LOG"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Component" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.appender}" value="COMPONENT_LOG"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Service" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.appender}" value="SERVICE_LOG"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Application" action="#{logBean.update}">
+						<f:setPropertyActionListener target="#{logBean.appender}" value="APPLICATION_LOG"/>
+					</h:commandLink>
+				</h:column>											
+			</h:panelGrid>
+
+			<h:outputText value="Viewing #{logBean.typeDisplay} entries for #{logBean.appenderDisplay} over the #{logBean.dateDisplay}."/>
+			<h:dataTable width="90%" id="entries" value="#{logBean.currentEntries}" var="logEntry">
+				<a:logEntryRow obj="${logEntry}"/>
+			</h:dataTable>
+
+			</div>
+		</div>
+		</h:form>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence>
+
+   <persistence-unit name="FirmCorePU">
+		<jta-data-source>jdbc/firm/systemData</jta-data-source>
+		<properties>
+		<!--  <property name="toplink.ddl-generation" value="create-tables"/>  -->
+		</properties>
+	</persistence-unit>
+
+</persistence>

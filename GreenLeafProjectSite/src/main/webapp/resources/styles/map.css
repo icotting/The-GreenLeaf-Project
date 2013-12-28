@@ -1,0 +1,45 @@
+#datepicker { 
+	font-size: 10pt; 
+	color: white; 
+	background: transparent;	
+	border: none;
+	width: 70px; margin-right: 5px; margin-left: 5px; opacity: .75
+}
+
+.slider { 
+	width: 150px;
+	margin-left: 15px;
+}
+
+#layerPopupFront { 
+	position: fixed; 
+	top: 96px; 
+	left: 8px; 
+	width: 350px; 
+	height: 400px; 
+	z-index: 5;
+	padding: 10px; color: black;
+	font-size: 8pt;
+}
+
+#layerPopupBack { 
+	position: fixed; 
+	top: 96px; 
+	left: 8px; 
+	width: 350px; 
+	z-index: 4;
+	background-color: black;
+	opacity: 0.80;
+}
+
+#layerPopupFront h1 {
+	border-bottom: 1px solid white;
+	font-size: 12pt;
+	font-weight: bold;
+	color: white;
+	width: 90%;
+	margin-bottom: 10px;	
+}
+
+#layerPopupFront table { margin-bottom: 20px; }
+

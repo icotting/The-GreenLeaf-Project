@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition>
+	<h:column>
+	<div style="width: 100%;">
+	<table width="100%" style="border: 1px solid black;">
+		<tr>
+			<td rowspan="2"><h:graphicImage value="./images/${obj.type}.png"/></td>
+			<td><h:outputText value="${obj.appender}"/></td>
+			<td><h:outputText value="${obj.className}"/></td>
+			<td align="right">
+				<h:outputText value="${obj.timeStamp}">
+					<f:convertDateTime type="both" dateStyle="medium"/>
+				</h:outputText>			
+			</td>			
+		</tr>
+		<tr><td colspan="3"><h:outputText value="${obj.message}"/></td></tr>
+
+			<tr>
+				<td colspan="4">
+					<h:outputText value="${obj.stackTrace}"/>
+				</td>
+			</tr>			
+
+	</table>
+	</div>
+	<div style="height: 30px;">
+		<img src="./images/odot.gif"/>
+	</div>
+	</h:column>
+</ui:composition>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+	<h:head>
+		<link rel="stylesheet" type="text/css"
+			href="./resources/styles/global.css" />
+		<title>The GreenLeaf Project</title>
+	</h:head>
+
+	<div id="header">
+		<div id="tabcontainer">
+			<div id="tabbar">
+				<ul>
+					<li class="tab"><a href=""><img class="tabicon" src="./resources/images/global/HomeIcon.png"/>Home</a></li>
+					<li class="tab"><a href=""><img class="tabicon" src="./resources/images/global/AboutIcon.png"/>About</a></li>
+					<li class="tab"><a href=""><img class="tabicon" src="./resources/images/global/DownloadsIcon.png"/>Downloads</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="page">
+		<div id="logo">
+			<img src="./resources/images/global/LeafLogo.png" class="leaf"/> 
+			<span>The GreenLeaf Project</span>
+			
+			<div id="pageBody">
+			<ui:insert name="pageBody">
+				
+				Insert Page Body Here
+			</ui:insert>
+			</div>
+			<div style="padding-left: 50px; font-size: 9pt">
+			<ui:insert name="footer"></ui:insert>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div id="footercontent">
+			<p>Copyright 2010, University of Nebraska. All rights reserved.<br/>
+			Version here.</p>
+		</div>
+	</div>
+</h:body>
+
+</html>

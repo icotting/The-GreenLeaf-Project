@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<update xmlns="http://ns.adobe.com/air/framework/update/description/1.0">
+  <version>1.0-SNAPSHOT</version>
+  <url>http://greenleaf.unl.edu/downloads/DroughtToolsInstall/DroughtTools.air</url>
+  <description><![CDATA[Drought Tools 1.0 Release
+  ]]></description>
+</update>

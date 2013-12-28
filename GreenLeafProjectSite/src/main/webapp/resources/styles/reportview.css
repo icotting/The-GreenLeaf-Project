@@ -1,0 +1,26 @@
+h1 { 
+	font-size: 14pt; 
+	font-weight: normal;
+}
+
+#reportbody { 
+	width: 700px;
+	margin-right: 30px;
+	text-align: justify;
+}
+
+td { 
+	vertical-align: top;	
+}
+
+#sidebar { 
+	width: 300px;
+}
+
+#sidebar table { width: 100%; }
+#sidebar th { font-weight: normal; text-decoration: underline; text-align: left; }
+
+#dates { margin-top: 20px; }
+#dm { margin-top: 20px; }
+
+.infoWindow { width: 200px; }

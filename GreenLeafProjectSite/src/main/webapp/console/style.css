@@ -1,0 +1,31 @@
+body { font-family: Calibri, Helvetica Neue, Arial; font-size: 10pt; }
+h1 { font-size: 15pt; }
+h2 { font-weight: normal; font-size: 12pt; color: #305fb5; }
+h3 { font-size: 12pt; font-weight: normal; text-decoration: underline; color: #999999; }
+
+.main { 
+	width: 1024px;	
+	margin-top: 10px;
+}
+
+.services { 
+	width: 227px;
+	float: left;
+	padding-right: 20px;	
+}
+
+.operations {
+	padding-left: 5px; 
+	width: 645px;
+	float: right;
+	border-left: 1px solid #cccccc;
+}
+
+input { font-family: Calibri, Helvetica Neue, Arial; font-size: 10pt; }
+
+a:visited { color: black; }
+a { color: black; }
+
+.section { 
+	vertical-align: top;
+}

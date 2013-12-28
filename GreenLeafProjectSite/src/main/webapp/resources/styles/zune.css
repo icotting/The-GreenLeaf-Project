@@ -1,0 +1,102 @@
+@media screen{
+	body>div#footer{
+   	position: fixed;
+  	}
+ }
+ * html body{
+  overflow:hidden;
+ }
+  
+* html div#page {
+  height:100%;
+  overflow:auto;
+}
+
+body { font-family: calibri, verdana, arial; color: black; background-color: #fff; height: 100%; font-size: 10pt; }
+
+#header { 
+	width: 100%; 
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 15px;
+	font-family: HelveticaNeue-UltraLight, Arial Narrow;
+}
+
+#header #title { 
+	margin-left: 20px;
+	margin-top: 10px;
+	font-size: 18pt;
+	padding-left: 60px;
+	padding-top: 10px;
+	background: url('../images/global/LeafLogo.png');
+	background-repeat: no-repeat;
+	height: 60px;
+}
+
+#header #menu { 
+	position: absolute; 
+	right: 290px; 
+	top: 30px;
+}
+
+#header #menu ul { list-style-type: none; }
+#header #menu li { 
+	font-size: 13pt; 
+	float: left; 
+	margin-right: 40px;
+}
+
+#header #menu li a { color: black; text-decoration: none; }
+#header #menu li a:visited { color: black; }
+
+#header #search { 
+	position: absolute; 
+	top: 12px; 
+	right: 20px;	
+}
+
+#header #search #query { border: 1px solid #ccc; width: 175px; }
+
+#header #title span { 	font-family: HelveticaNeue-Light, Arial Narrow;}
+
+#page { margin-bottom: 50px; }
+
+#footer { position: fixed; bottom: 0px; left: 0px; 
+	background-image: url('../images/global/HeaderBack.png'); background-repeat: repeat-x;
+	width: 100%; height: 52px; 
+	text-align: left; padding-bottom: 0px; margin-top: 10px; font-size: 9pt; color: white; z-index: 100; }
+	
+#footer a { color: #ccc; }
+#footer a.visited { color: #ccc; }
+	
+input { font-family: calibri, verdana, arial; color: black; background-color: #fff; font-size: 9pt; padding: 2px; }
+
+small { font-size: 8pt; }
+
+#simplemodal-overlay {background-color:#000; height: 100%; }
+#simplemodal-container {background-color:#fff; border:8px solid #444; padding:12px;}
+
+.modalDialog { 
+	display: none;
+	position: fixed; 
+	top: 20px;
+	left: 20px;
+	z-index: 100;
+	border: 2px solid #cccccc;
+	margin-left: 12%;
+}
+
+.section { 
+	font-family: HelveticaNeue-UltraLight, Arial Narrow;
+	font-size: 12pt;
+	margin-bottom: 3px;
+}
+
+.selector { 
+	width: 30px; 
+	height: 2px; 
+	background-color: #98bb33; 
+	position: absolute;
+	display: none;
+}
+
+a { color: #3A57BF; }

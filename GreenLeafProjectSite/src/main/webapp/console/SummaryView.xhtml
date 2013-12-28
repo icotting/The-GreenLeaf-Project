@@ -1,0 +1,255 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://greenleaf.unl.edu/facelets">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<title>FIRM Management Console</title>
+		<link rel="stylesheet" type="text/css" href="./style.css"/>
+		
+		<script type="text/javascript">
+			function pageRefresh() { 
+				// the script 'clicks' the button to cause the refresh
+				document.getElementById('summary:refreshController').click();
+				setTimeout(pageRefresh, 5000);	
+			}
+		</script>
+		<script type="text/javascript" src="../../resources/scripts/FusionCharts.js"></script>
+	</h:head>
+	<body onload="pageRefresh()">
+		<h1>FIRM Management Console - System Summary</h1>
+		<hr style="border: 0; width: 98%; color: #305fb5; background-color: #305fb5; height: 1px;"/>
+		<div style="position: absolute; top: 10px; right: 30px">
+			<a href="SummaryView.xhtml">Summary</a>&nbsp;&nbsp;
+			<a href="ServiceManager.jsp">Service Manager</a>&nbsp;&nbsp;
+			<a href="LogViewer.xhtml">Log Manager</a>
+		</div>
+		
+		<h:form id="summary">
+		<div class="main">
+			<h:panelGrid columns="3" width="100%" columnClasses="section,section,section">
+				<h:column>			
+					<h3>Server Information</h3>
+					<h:panelGrid columns="2" width="100%" id="server">
+						<h:column>Architecture</h:column>
+						<h:column><h:outputText value="#{vmBean.architecture}"/></h:column>			
+						<h:column>Operating System:</h:column>
+						<h:column><h:outputText value="#{vmBean.os}"/></h:column>
+						<h:column>Physical Memory:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.totalPhysicalMem}">
+								<f:convertNumber pattern="###,###.## mbytes"/>
+							</h:outputText>
+						</h:column>		
+						<h:column>Free Memory:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.freePhysicalMem}">
+								<f:convertNumber pattern="###,###.## mbytes"/>
+							</h:outputText>
+						</h:column>		
+						<h:column>Virtual Memory:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.virtualMemory} mbytes">
+								<f:convertNumber pattern="###,###.## mbytes"/>
+							</h:outputText>					
+						</h:column>	
+						<h:column>Available CPUs:</h:column>			
+						<h:column><h:outputText value="#{vmBean.processorCount}"/></h:column>				
+						<h:column>CPU Time:</h:column>			
+						<h:column>
+							<h:outputText value="#{vmBean.cpuTime}">
+								<f:convertNumber pattern="###,###.## hours"/>
+							</h:outputText>
+						</h:column>						
+					</h:panelGrid>								
+				</h:column>
+				<h:column>
+					<h3>Virtual Machine Summary</h3>
+					<h:panelGrid columns="2" width="100%" id="memory">
+						<h:column>Virtual Machine:</h:column>
+						<h:column><h:outputText value="#{vmBean.vmName}"/></h:column>
+						<h:column>Version:</h:column>
+						<h:column><h:outputText value="#{vmBean.vmVersion}"/></h:column>	
+						<h:column>Vendor:</h:column>
+						<h:column><h:outputText value="#{vmBean.vmVendor}"/></h:column>		
+						<h:column>Start Time:</h:column>
+						<h:column><h:outputText value="#{vmBean.startTime}"/></h:column>
+						<h:column>Uptime:</h:column>
+						<h:column><h:outputText value="#{vmBean.upTime} days"/></h:column>			
+						<h:column>Loaded Classes:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.loadedClasses}">
+								<f:convertNumber pattern="###,###.##"/>
+							</h:outputText>
+						</h:column>
+						<h:column>Unloaded Classes:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.unloadedClasses}">
+								<f:convertNumber pattern="###,###.##"/>
+							</h:outputText>
+						</h:column>		
+						<h:column>Total Loaded Classes:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.totalLoadedClasses}">
+								<f:convertNumber pattern="###,###.##"/>
+							</h:outputText>
+						</h:column>																								
+					</h:panelGrid>					
+				</h:column>
+				<h:column>
+					<h3>Thread Summary</h3>
+					<h:panelGrid columns="2" width="100%" id="threads">						
+						<h:column>Current Threads:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.threadCount}">
+								<f:convertNumber pattern="###,###"/>
+							</h:outputText>	
+						</h:column>	
+						<h:column>Peak Thread Count:</h:column>
+						<h:column>
+							<h:outputText value="#{vmBean.peakThreadCount}">
+								<f:convertNumber pattern="###,###"/>
+							</h:outputText>
+						</h:column>							
+						<h:column>Daemon Threads:</h:column>				
+						<h:column>
+							<h:outputText value="#{vmBean.daemonThreadCount}">
+								<f:convertNumber pattern="###,###"/>
+							</h:outputText>
+						</h:column>	
+						<h:column>Total Threads:</h:column>				
+						<h:column>
+							<h:outputText value="#{vmBean.totalStartedThreadCount}">
+								<f:convertNumber pattern="###,###"/>
+							</h:outputText>
+						</h:column>							
+					</h:panelGrid>																		
+				</h:column>
+			</h:panelGrid>
+			<h3>Memory Statistics</h3>
+			
+			<h:panelGrid columns="3" width="100%">
+			<h:column>
+			<h:panelGrid columns="2" width="100%" id="vmMem">	
+				<h:column><span style="font-style: italic; text-decoration: underline">Heap Memory Usage</span></h:column>
+				<h:column/>
+				<h:column>Committed:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.heapCommitted}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>
+				<h:column>Initial:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.heapInit}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>	
+				</h:column>				
+				<h:column>Max:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.heapMax}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>
+				<h:column>Used:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.heapUsed}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>					
+				<h:column><span style="font-style: italic; text-decoration: underline">Non-Heap Memory Usage</span></h:column>	
+				<h:column/>							
+				<h:column>Committed:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.nonHeapCommitted}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>		
+				<h:column>Initial:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.nonHeapInit}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>					
+				<h:column>Max:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.nonHeapMax}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>	
+				<h:column>Used:</h:column>
+				<h:column>
+					<h:outputText value="#{vmBean.nonHeapUsed}">
+						<f:convertNumber pattern="###,###.## kbytes"/>
+					</h:outputText>
+				</h:column>													
+			</h:panelGrid>
+			</h:column>
+			<h:column>
+				<a:fusionChart containerId="heapChartcontainer" chartId="heapChart" swfPath="../resources/charts/Doughnut2D.swf"
+					dataUrl="../../service/console/charts/memory/heap" chartWidth="300" chartHeight="200"/>				
+			</h:column>
+			<h:column>	
+				<a:fusionChart containerId="nonHeapContainer" chartId="nonHeapChart" swfPath="../resources/charts/Doughnut2D.swf"
+					dataUrl="../../service/console/charts/memory/nonheap" chartWidth="300" chartHeight="200"/>
+			</h:column>			
+			</h:panelGrid>
+		</div>
+		<div>
+			<h3>Data Builder Status</h3>
+			<h:panelGrid columns="2" width="100%" id="builderStatus">
+				<h:column>
+					<h4>ACIS Builder:</h4>
+					<h:panelGrid columns="2" width="500">
+						<h:column>Query Writer Status:</h:column>
+						<h:column><h:outputText value="#{dataBean.acisQueryWriterStatus}"/></h:column>
+						<h:column>Query Writer Progress:</h:column>
+						<h:column><h:outputText value="#{dataBean.acisQueryWriterProgress}"/></h:column>
+						<h:column>Data Writer Status:</h:column>
+						<h:column><h:outputText value="#{dataBean.acisDataWriterStatus}"/></h:column>
+						<h:column>Data Writer Progress:</h:column>
+						<h:column><h:outputText value="#{dataBean.acisDataWriterProgress}"/></h:column>			
+						<h:column>Runtime:</h:column>			
+						<h:column><h:outputText value="#{dataBean.acisBuilderRuntime}"/></h:column>
+					</h:panelGrid>
+				</h:column>
+				<h:column>
+					<h4>DIR Builder:</h4>
+					<h:panelGrid columns="2" width="500">
+						<h:column>Status:</h:column>
+						<h:column><h:outputText value="#{dataBean.dirBuilderStatus}"/></h:column>
+						<h:column>Progress:</h:column>
+						<h:column><h:outputText value="#{dataBean.dirBuilderProgress}"/></h:column>			
+						<h:column>Runtime:</h:column>
+						<h:column><h:outputText value="#{dataBean.dirBuilderRuntime}"/></h:column>
+						<h:column>Last Run:</h:column>
+						<h:column><h:outputText value="#{dataBean.dirBuilderLastRun}"/></h:column>						
+					</h:panelGrid>
+				</h:column>
+				<h:column>
+					<h4>USGS Streamflow Builder:</h4>
+					<h:panelGrid columns="2" width="500">
+						<h:column>Status:</h:column>
+						<h:column><h:outputText value="Inactive"/></h:column>
+						<h:column>Progress:</h:column>
+						<h:column><h:outputText value="0"/></h:column>					
+					</h:panelGrid>
+				</h:column>				
+			</h:panelGrid>
+		</div>
+		
+		<h:commandButton id="refreshController" value="" style="display: none">
+			<f:ajax event="click" render="summary:vmMem"/>
+			<f:ajax event="click" render="summary:threads"/>
+			<f:ajax event="click" render="summary:memory"/>
+			<f:ajax event="click" render="summary:server"/>
+			<f:ajax event="click" render="summary:builderStatus"/>
+		</h:commandButton>
+
+		</h:form>
+	</body>
+</html>

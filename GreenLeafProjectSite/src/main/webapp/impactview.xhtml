@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://greenleaf.unl.edu/facelets"	
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition template="./resources/templates/zune.xhtml">
+		<ui:define name="styles">
+			<link rel="stylesheet" type="text/css" href="./resources/styles/reportview.css" />
+			<link rel="stylesheet" type="text/css" href="./resources/styles/zune.css" />
+		</ui:define>
+			
+		<ui:define name="scripts">
+			<script type="text/javascript" src="./resources/scripts/dir.js"/>
+			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		</ui:define>
+			
+		<ui:define name="pageBody">		
+			<f:view contentType="text/html">
+			<h:outputScript>$('#toolsSelector').show();</h:outputScript>					
+			<table>
+			<tr>
+			<td>
+			<div id="reportbody">
+			<h1><h:outputText value="#{impactViewBean.impactBean.title}"/></h1>
+			<div>
+				<h:outputText value="#{impactViewBean.impactBean.summary}"/>
+				<h:inputHidden name="impactId" id="impactId" value="#{impactViewBean.impactBean.impactId}"/>
+			</div>
+			</div>
+			</td>
+			<td rowspan="2">
+				<div id="sidebar">
+				<div class="section">Additional Information</div>		  
+				<h:dataTable value="#{impactViewBean.impactBean.reportCategories}" var="category" columns="2">
+					<h:column>
+						<f:facet name="header"><h:outputText value="Category"/></f:facet>
+						<h:outputText value="#{category.impactCategory.printName}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Reported Loss"/></f:facet>					
+						<h:outputText rendered="#{category.dollarLoss ne 0.0}" value="#{category.dollarLoss}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+						<h:outputText rendered="#{category.dollarLoss eq 0.0}" value="-"/>
+					</h:column>
+				</h:dataTable>
+
+				<table id="dates">
+					<tr>
+						<td>Impact Beginning:</td>
+						<td>
+							<h:outputText value="#{impactViewBean.impactBean.startDate}">
+								<f:convertDateTime pattern="MMM dd, yyyy" type="date" />
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<td>Impact Ending:</td>
+						<td>
+							<h:outputText value="#{impactViewBean.impactBean.endDate}">
+								<f:convertDateTime pattern="MMM dd, yyyy" type="date" />
+							</h:outputText>
+						</td>
+					</tr>					
+				</table>	
+				
+				
+				<div id="dm">
+			
+				<h:panelGrid id="dmTbl">
+				<h:column>				
+				Effected area drought monitor summary:			
+				<table>
+					<tr>
+						<td>D0 - Abnormally Dry</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d0 ne 0}"  value="#{impactViewBean.dmClassifications.d0/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d0 eq 0}" value="-"/>							
+						</td>
+					</tr>
+					<tr>
+						<td>D1 - Drought - Moderate</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d1 ne 0}"  value="#{impactViewBean.dmClassifications.d1/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d1 eq 0}" value="-"/>								
+						</td>
+					</tr>
+					<tr>
+						<td>D2 - Drought - Severe</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d2 ne 0}"  value="#{impactViewBean.dmClassifications.d2/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d2 eq 0}" value="-"/>								
+						</td>
+					</tr>
+					<tr>
+						<td>D3 - Drought - Extreme</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d3 ne 0}"  value="#{impactViewBean.dmClassifications.d3/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d3 eq 0}" value="-"/>								
+						</td>
+					</tr>
+					<tr>
+						<td>D4 - Drought - Exceptional</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d4 ne 0}" value="#{impactViewBean.dmClassifications.d4/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.d4 eq 0}" value="-"/>								
+						</td>
+					</tr>	
+					<tr>
+						<td>Normal Conditions</td>
+						<td>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.unclassified ne 0}" value="#{impactViewBean.dmClassifications.unclassified/100}">
+								<f:convertNumber pattern="#.##%" />
+							</h:outputText>
+							<h:outputText rendered="#{impactViewBean.dmClassifications.unclassified eq 0}" value="-"/>								
+						</td>
+					</tr>																				
+				</table>
+				<div id="dmChartCanvas"></div>
+				</h:column>
+				</h:panelGrid>
+				</div>		
+				<h:outputScript>
+					var chart = new FusionCharts("../resources/charts/Pie2D.swf", "dmChartCanvas", "300", "250", "0", "0");
+					chart.setDataURL("../service/dir/charts/reportdm/");
+					chart.render("dmChartCanvas");
+				</h:outputScript>					
+			</div>			
+			</td>
+			</tr>
+			<tr><td>
+				<div id="map_canvas" style="width:650px; height:450px; margin-bottom: 30px; margin-top: 20px;"></div>						
+			</td></tr>
+			</table>	
+			<h:outputScript>
+				initMap();
+			</h:outputScript>	
+			</f:view>
+		</ui:define>
+
+		<ui:define name="footer">
+			<div id="footerContents">
+			<a href="./dir.xhtml">Back to the Drought Impact Catalog</a>
+			</div>
+		</ui:define>
+	</ui:composition>
+
+</html>
